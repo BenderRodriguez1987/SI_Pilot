@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:Cells="clr-namespace:SI_Master.Cells"
+             xmlns:local="clr-namespace:SI_Master.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="SI_Master.Views.DeskTopPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="MobileCodeButton" Clicked="MobileCodeButton_Clicked" Text="Код мобильного приложения" Order="Secondary"/>
+        <ToolbarItem x:Name="GetKeysButton" Clicked="GetKeysButton_Clicked" Text="Заказ ключей" Order="Secondary"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout
+            Orientation="Vertical">
+            <!--<Button
+                x:Name="registerButton"
+                HeightRequest="40"
+                WidthRequest="120"
+                BackgroundColor="Red"
+                Text="Register"
+                Clicked="Register"
+                TextColor="White"></Button>-->
+            <local:NonSelectableListView
+            ItemsSource="{Binding ItemSource}"
+            x:Name="DesktopListView"
+                SelectionMode="None" 
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            HasUnevenRows="true"
+            BackgroundColor="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10" Margin="0, 3, 0, 3" BorderColor="LightGray"  CornerRadius="5" HasShadow="false">
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Caption}" HorizontalOptions="StartAndExpand" FontSize="Medium"
+                                           FontAttributes="Bold"/>
+                                        <Frame 
+                                            CornerRadius="3"
+                                            BorderColor="Transparent"
+                                            BackgroundColor="{Binding StatusColor}" Padding="10, 5, 10, 5" VerticalOptions="Center">
+                                            <Label Text="{Binding StatusText}" VerticalTextAlignment="Center" HorizontalOptions="End" 
+                                                   TextColor="White" FontSize="Small"  />
+                                        </Frame>
+                                    </StackLayout>
+                                    <Label Text="{Binding Sum}" FontAttributes="Bold" FontSize="Large" TextColor="{Binding BalanceColor}" />
+                                    <Label Text="{Binding ForMatedDateStr}" FontSize="Micro" TextColor="Gray"  />
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </local:NonSelectableListView>
+        </StackLayout>
+
+            
+    </ContentPage.Content>
+</ContentPage>

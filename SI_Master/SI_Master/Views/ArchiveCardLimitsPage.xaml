@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="ArchiveCardPage"
+             Title="{Binding Title}"
+             x:Class="SI_Master.Views.ArchiveCardLimitsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="filterButton" Clicked="FilterButton_Clicked" IconImageSource="ic_filter"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar 
+                x:Name="searchBar"
+                TextChanged="SearchBarTextChanged"
+                Placeholder="Поиск" />
+            <ListView
+            ItemsSource="{Binding ItemSource}"
+            x:Name="ArchiveCardsListView"
+            CachingStrategy="RecycleElement"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            HasUnevenRows="true"
+            BackgroundColor="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell
+                                x:Name="CardsListCell">
+                            <Frame Padding="10" Margin="0, 3, 0, 3" BorderColor="LightGray"  CornerRadius="5" HasShadow="false">
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="FillAndExpand">
+                                        <StackLayout
+                                            Orientation="Vertical"
+                                            BackgroundColor="Transparent">
+                                            <Label Text="{Binding CardNumber}" HorizontalOptions="StartAndExpand" FontSize="Medium"
+                                           FontAttributes="Bold"/>
+                                            <Label Text="{Binding ForMatedDateStr}" FontSize="Micro" TextColor="Gray"  />
+                                        </StackLayout>
+                                        <Grid
+                                            HorizontalOptions="EndAndExpand"
+                                            RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="24"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Frame 
+                                            CornerRadius="3"
+                                                Grid.Row="0"
+                                            BorderColor="Transparent" Opacity="0.3"
+                                            BackgroundColor="{Binding StatusColor}"  VerticalOptions="Center">
+                                            </Frame>
+                                            <Label Text="{Binding Status}" VerticalTextAlignment="Center" HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                       Grid.Row="0"
+                                                   Padding="10, 3, 10, 3"
+                                                   TextColor="Black" FontSize="Small"  />
+                                            <Button
+                                                x:Name="LimitsButton"
+                                                Grid.Row="1"
+                                                FontFamily="{StaticResource SoftIngFontIcons}"
+                                                Text="{Binding LimitsButtonText}" FontSize="20"
+                                                WidthRequest="40" HeightRequest="40"
+                                                HorizontalOptions="End" VerticalOptions="End"
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Source={x:Reference ArchiveCardPage}, Path=LimitsPopupShowClicked}"
+                                                CommandParameter="{Binding .}" />
+                                        </Grid>
+                                    </StackLayout>
+                                    <!--<Label Text="{Binding Status}" FontAttributes="Bold" FontSize="Large" TextColor="{Binding BalanceColor}" />-->
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

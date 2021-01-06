@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.Cells.CardListViewCell">
+    <ContentView.Content>
+        <Frame                   
+                                        
+                                Padding="10" Margin="0, 3, 0, 3" BorderColor="LightGray"  CornerRadius="5" HasShadow="false">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout
+                                        
+                                        VerticalOptions="FillAndExpand"
+                                        HorizontalOptions="FillAndExpand"
+                                        Opacity="0.2"
+                                        Grid.Column="0"
+                                        Grid.Row="0"></StackLayout>
+                <StackLayout
+                                        Grid.Column="0"
+                                        Grid.Row="0">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Caption}" HorizontalOptions="StartAndExpand" FontSize="Medium"
+                                           FontAttributes="Bold"/>
+                        <Image
+                            IsVisible="{Binding IsBlock}"
+                            x:Name="IsBlockImage"
+                                                Source="ic_block"></Image>
+                        <Button x:Name="CardLimitsButton"
+                                Text="Лимиты карты"
+                                ></Button>
+                    </StackLayout>
+                    <Label Text="{Binding BalanceText}" FontAttributes="Bold" FontSize="Large" TextColor="{Binding BalanceColor}" Margin="0, 5,0,0"/>
+                    <Label Text="{Binding Update}" FontSize="Micro" TextColor="Gray"  />
+                </StackLayout>
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

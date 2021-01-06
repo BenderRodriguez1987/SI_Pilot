@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="SI_Master.Views.SettlementsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="filterButton" Clicked="FilterButton_Clicked" IconImageSource="ic_filter"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout
+            Orientation="Vertical"
+            Spacing="0">
+            <SearchBar 
+                x:Name="searchBar"
+                TextChanged="SearchBarTextChanged"
+                Placeholder="Поиск" />
+            <Label
+                x:Name="CurrentPeriodLabel"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                FontSize="16"></Label>
+            <Grid
+                Margin="8,8,8,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    HorizontalOptions="StartAndExpand" FontSize="Medium"
+                    Text="Выставлено счетов"
+                    Grid.Column="0"
+                    Grid.Row="0"></Label>
+                <!--<Label 
+                    HorizontalOptions="StartAndExpand" FontSize="Medium"
+                    Text="Оплачено"
+                    Grid.Column="0"
+                    Grid.Row="1"></Label>-->
+                <Label
+                    HorizontalOptions="StartAndExpand" FontSize="Medium"
+                    Text="Начальный"
+                    Grid.Column="0"
+                    Grid.Row="2"></Label>
+                <Label 
+                    HorizontalOptions="StartAndExpand" FontSize="Medium"
+                    Text="Конечный"
+                    Grid.Column="0"
+                    Grid.Row="3"></Label>
+                <Label 
+                    HorizontalOptions="StartAndExpand" FontSize="Medium"
+                    Text="Не выставлено счетов на сумму"
+                    Grid.Column="0"
+                    Grid.Row="4"></Label>
+                <Label 
+                    x:Name="DebtLabel"
+                    HorizontalOptions="StartAndExpand" FontSize="Medium"
+                    Text="{Binding DebtLabel}"
+                    Grid.Column="0"
+                    Grid.Row="5"></Label>
+                <Label
+                     HorizontalOptions="EndAndExpand" FontSize="Medium"
+                    Text="{Binding Totals.TurnBill}"
+                    Grid.Column="1"
+                    Grid.Row="0"></Label>
+                <!--<Label
+                     HorizontalOptions="EndAndExpand" FontSize="Medium"
+                    Text="{Binding Totals.TurnPay}"
+                    Grid.Column="1"
+                    Grid.Row="1"></Label>-->
+                <Label
+                     HorizontalOptions="EndAndExpand" FontSize="Medium"
+                    Text="{Binding Totals.SumIn}"
+                    Grid.Column="1"
+                    Grid.Row="2"></Label>
+                <Label
+                     HorizontalOptions="EndAndExpand" FontSize="Medium"
+                    Text="{Binding Totals.SumOut}"
+                    Grid.Column="1"
+                    Grid.Row="3"></Label>
+                <Label
+                     HorizontalOptions="EndAndExpand" FontSize="Medium"
+                    Text="{Binding Total2.Sum}"
+                    Grid.Column="1"
+                    Grid.Row="4"></Label>
+                <Label
+                    x:Name="DebtValueLabel"
+                     HorizontalOptions="EndAndExpand" FontSize="Medium"
+                    Text="{Binding Debt}"
+                    Grid.Column="1"
+                    Grid.Row="5"></Label>
+            </Grid>
+                
+            <ListView
+            ItemsSource="{Binding ItemSource}"
+                CachingStrategy="RecycleElement"
+            x:Name="SettlementsList"
+                SelectionMode="None" 
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            HasUnevenRows="true"
+            BackgroundColor="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10" Margin="0, 3, 0, 3" BorderColor="LightGray"  CornerRadius="5" HasShadow="false">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Column="0">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Contract}" HorizontalOptions="StartAndExpand" FontSize="Medium"
+                                           FontAttributes="Bold"/>
+                                            <!--<ContentView BackgroundColor="{Binding StatusColor}" Padding="10, 5, 10, 5" VerticalOptions="Center">
+                                            <Label Text="{Binding StatusText}" VerticalTextAlignment="Center" HorizontalOptions="End" 
+                                                   TextColor="White" FontSize="Small"  />
+                                        </ContentView>-->
+                                        </StackLayout>
+                                        <Label Text="{Binding Flow}" FontAttributes="Bold" FontSize="Large" TextColor="{Binding BalanceColor}" />
+                                        <Label Text="{Binding ForMatedDateStr}" FontSize="Micro" TextColor="Gray"  />
+                                    </StackLayout>
+                                    <Grid
+                                        Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding SumIn}"
+                                               FontSize="16"
+                                               Grid.Column="0"/>
+                                        <Label Text="{Binding SumOut}"
+                                               FontSize="16"
+                                               Grid.Column="1"/>
+                                    </Grid>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

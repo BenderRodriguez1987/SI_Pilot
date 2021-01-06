@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:SI_Master.Controls"
+             mc:Ignorable="d"
+             x:Class="SI_Master.Views.FiltersPage">
+    <ContentPage.Content>
+        <StackLayout Margin="20, 20, 20, 30">
+            <ScrollView>
+                <StackLayout>
+
+                    <Frame x:Name="contractNumberFrame" HasShadow="false" Padding="10" IsVisible="False">
+                        <StackLayout Spacing="0">
+                            <Label Text="Номер договора" FontSize="Micro" Margin="0" TextColor="{StaticResource Key=textColor}" />
+                            <Entry x:Name="contractNumberEntry" Placeholder="№ договора" Margin="0" TextColor="{StaticResource Key=entryTextColor}"
+                                   BackgroundColor="{StaticResource Key=entryBackColor}" />
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame x:Name="cardNumberFrame" HasShadow="false" Padding="10" IsVisible="False">
+                        <StackLayout Spacing="0">
+                            <Label Text="Номер карты" FontSize="Micro" TextColor="{StaticResource Key=textColor}" />
+                            <Entry x:Name="cardNumberEntry" Placeholder="№ карты" TextColor="{StaticResource Key=entryTextColor}"
+                                   BackgroundColor="{StaticResource Key=entryBackColor}" />
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame x:Name="periodFrame" HasShadow="false" Padding="10" IsVisible="False">
+                        <Grid HorizontalOptions="Fill" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Text="Период" FontSize="Micro" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" TextColor="{StaticResource Key=textColor}" />
+                            <local:NullableDatePicker x:Name="periodStart" Grid.Column="0" Grid.Row="1" PlaceHolder="Пусто" Format="d"
+                                                      TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}" />
+                            <local:NullableDatePicker x:Name="periodEnd" Grid.Column="1" Grid.Row="1" PlaceHolder="Пусто" Format="d"
+                                                      TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}"/>
+                        </Grid>
+                    </Frame>
+
+                    <Frame x:Name="cardHolderFrame" HasShadow="false" Padding="10" IsVisible="False">
+                        <StackLayout Spacing="0">
+                            <Label Text="Закреплена за" FontSize="Micro" TextColor="{StaticResource Key=textColor}" />
+                            <Entry x:Name="cardHolderEntry" Placeholder="Введите имя" 
+                                   TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}" />
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame x:Name="cardStatusFrame" HasShadow="false" Padding="10" IsVisible="False">
+                        <StackLayout Spacing="0">
+                            <Label Text="Статус карты" FontSize="Micro" TextColor="{StaticResource Key=textColor}" />
+                            <Picker x:Name="cardStatusPicker" SelectedIndex="0" Title="Статус карты" 
+                                    TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}" >
+                                <!--<Picker.Items>
+                                    <x:String>Все</x:String>
+                                    <x:String>Активна</x:String>
+                                    <x:String>Стоп лист</x:String>
+                                </Picker.Items>-->
+                            </Picker>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame x:Name="requestStatusFrame" HasShadow="false" Padding="10" IsVisible="False">
+                        <StackLayout Spacing="0">
+                            <Label Text="Статус заявки" FontSize="Micro" TextColor="{StaticResource Key=textColor}" />
+                            <Picker x:Name="requestStatusPicker" SelectedIndex="0" Title="Статус заявки" 
+                                    TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}">
+                                <Picker.Items>
+                                    <x:String>Все</x:String>
+                                    <x:String>В обработке</x:String>
+                                    <x:String>Обработана</x:String>
+                                    <x:String>Не найдена</x:String>
+                                    <x:String>Отправлена</x:String>
+                                    <x:String>Неактуальна</x:String>
+                                    <x:String>Отменена оператором</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame x:Name="requestIdFrame" HasShadow="false" Padding="10" IsVisible="False">
+                        <StackLayout Spacing="0">
+                            <Label Text="Номер заявки" FontSize="Micro" TextColor="{StaticResource Key=textColor}" />
+                            <Entry x:Name="requestIdEntry" Placeholder="№ заявки"
+                                   TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}" />
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+            </ScrollView>
+
+            <Button x:Name="applyFilterButton" Margin="0, 20, 0, 0" Padding="0, 5, 0, 5" 
+                    HorizontalOptions="FillAndExpand" Text="Применить" Clicked="ApplyFilterButton_Clicked" 
+                    BackgroundColor="{StaticResource Key=buttonBackColor}" TextColor="{StaticResource Key=buttonTextColor}" />
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

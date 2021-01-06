@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cell="clr-namespace:SI_Master.Cells"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Name="cardPage"
+             x:Class="SI_Master.Views.CardsPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="filterButton" Clicked="FilterButton_Clicked" IconImageSource="ic_filter"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout
+            x:Name="rootStack"
+            Orientation="Vertical"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            BackgroundColor="White">
+            <!--<StackLayout
+                x:Name="ButtonsStack"
+                Orientation="Horizontal"
+                IsVisible="True"
+                Padding="8,5,8,5"
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="46"
+                BackgroundColor="White">
+                --><!--<Button
+                    IsEnabled="False"
+                    x:Name="BlockCardButtioon"
+                    HorizontalOptions="CenterAndExpand"
+                    HeightRequest="38"
+                    WidthRequest="150"
+                    BackgroundColor="Gray"
+                    Text="Заблокировать"
+                    BorderWidth="2"
+                    BorderColor="Gray"
+                    TextColor="White"></Button>
+                <Button
+                    IsEnabled="False"
+                    x:Name="ChangeLimitsButton"
+                    HorizontalOptions="CenterAndExpand"
+                    HeightRequest="38"
+                    WidthRequest="150"
+                    BackgroundColor="Gray"
+                    Text="Изменить"
+                    BorderWidth="2"
+                    BorderColor="Gray"
+                    TextColor="White"></Button>--><!--
+            </StackLayout>-->
+
+            <!--<ScrollView
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">-->
+
+            <SearchBar 
+                x:Name="searchBar"
+                TextChanged="SearchBarTextChanged"
+                Placeholder="Поиск" />
+                <ListView
+            ItemsSource="{Binding ItemSource}"
+            x:Name="CardsListView"
+            CachingStrategy="RecycleElement"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            HasUnevenRows="true"
+                    SelectionMode="Single"
+            BackgroundColor="White">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell
+                                x:Name="CardsListCell">
+                            <Frame                   
+                                Padding="10" Margin="0, 3, 0, 3" BorderColor="LightGray"  CornerRadius="5" HasShadow="false">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="300" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Orientation="Vertical"
+                                        VerticalOptions="FillAndExpand"
+                                        HorizontalOptions="FillAndExpand"
+                                        Grid.Column="1"
+                                        Grid.Row="0">
+                                        <Image
+                                                IsVisible="{Binding IsBlock}"
+                                                x:Name="IsBlockImage"
+                                            HorizontalOptions="End"
+                                                Source="ic_block"></Image>
+                                        <Button
+                                                x:Name="LimitsButton"
+                                                FontFamily="{StaticResource SoftIngFontIcons}"
+                                                Text="{Binding LimitsButtonText}" FontSize="20"
+                                                WidthRequest="40" HeightRequest="40"
+                                                HorizontalOptions="End" VerticalOptions="End"
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Source={x:Reference cardPage}, Path=LimitsPopupShowClicked}"
+                                                CommandParameter="{Binding .}" />
+                                    </StackLayout>
+                                    <StackLayout
+                                        Grid.Column="0"
+                                        Grid.Row="0">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Caption}" HorizontalOptions="StartAndExpand" FontSize="Medium"
+                                           FontAttributes="Bold"/>
+                                        </StackLayout>
+                                        <Label Text="{Binding BalanceText}" FontAttributes="Bold" FontSize="Large" TextColor="{Binding BalanceColor}" Margin="0, 5,0,0"/>
+                                        <StackLayout
+                                            Orientation="Horizontal"
+                                            Spacing="0"
+                                            BackgroundColor="Transparent"
+                                            HorizontalOptions="Fill">
+                                            <Label Text="{Binding Update}" FontSize="Micro" TextColor="Gray" HorizontalOptions="Start" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            <!--</ScrollView>-->
+                
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

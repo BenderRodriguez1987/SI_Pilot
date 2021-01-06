@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popups:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:popups="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.PopUps.CardLimitsPopup">
+    <StackLayout
+        Spacing="0"
+        Orientation="Vertical"
+        BackgroundColor="Transparent"
+        VerticalOptions="Center"
+        HorizontalOptions="Fill"
+        Margin="10, 30, 10, 30">
+        <Frame
+            Padding="2"
+            CornerRadius="4"
+            BorderColor="White"
+            HorizontalOptions="FillAndExpand"
+            BackgroundColor="White">
+
+            <StackLayout
+                Orientation="Vertical"
+                BackgroundColor="Transparent">
+                <Label
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    TextColor="Black"
+                    FontSize="20"
+                    Margin="24, 0, 0, 20"
+                    Text="{Binding Title}"
+                    FontAttributes="Bold" />
+                <Label
+                    x:Name="PlaceHolderLabel"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    TextColor="Black"
+                    IsVisible="False"
+                    Text="Лимиты отсутствуют"></Label>
+                <ListView
+                    x:Name="LimitsList"
+                    IsVisible="True"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start"
+                        ItemsSource="{Binding DataSource}"
+                        MinimumHeightRequest="100"
+                        VerticalScrollBarVisibility="Never"
+                        SeparatorVisibility="None"
+                        RowHeight="55"
+                        SelectionMode="None" 
+                    Margin="10,10,10,10"
+                        HasUnevenRows="false">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition  Width="5*" />
+                                        <ColumnDefinition  Width="2*" />
+                                        <ColumnDefinition  Width="3*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        Text="{Binding FuelType}"
+                                        FontSize="14"
+                                        TextColor="Black"
+                                        HorizontalOptions="Start"></Label>
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding FuelString}"
+                                        FontSize="14"
+                                        TextColor="Black"
+                                        HorizontalOptions="Center"></Label>
+                                    <Label
+                                        Grid.Column="2"
+                                        Text="{Binding LimitType}"
+                                        FontSize="14"
+                                        TextColor="Black"
+                                        HorizontalOptions="End"></Label>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                        
+                </ListView>
+                <StackLayout
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Orientation="Horizontal">
+                    <StackLayout.Padding>
+                        <OnPlatform
+                            x:TypeArguments="Thickness"
+                            iOS="0, 8, 24, 8"
+                            Android="8" />
+                    </StackLayout.Padding>
+                    <StackLayout.Spacing>
+                        <OnPlatform
+                            x:TypeArguments="x:Double"
+                            iOS="24"
+                            Android="0" />
+                    </StackLayout.Spacing>
+                    <Button
+                        x:Name="BlockButton"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Key=SoftIngBarTextColor}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="38"
+                        Clicked="BlockCard_Clicked" />
+                    <Button
+                        x:Name="ChangeButton"
+                        Text="ИЗМЕНИТЬ"
+                        IsVisible="{Binding isChangeButtonAlowed}"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Key=SoftIngBarTextColor}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="38"
+                        Clicked="ChangeLimits_Clicked" />
+                    <Button
+                        x:Name="OkButton"
+                        Text="OK"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Key=SoftIngBarTextColor}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="38"
+                        Clicked="Ok_Clicked" />
+                </StackLayout>
+            </StackLayout>
+
+        </Frame>
+    </StackLayout>
+</popups:PopupPage>

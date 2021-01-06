@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popups:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:popups="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.PopUps.CardBlockPopup">
+    <ContentPage.Content>
+        <StackLayout
+            Orientation="Vertical"
+            VerticalOptions="Center"
+            HorizontalOptions="CenterAndExpand"
+            BackgroundColor="White"
+            WidthRequest="300"
+            Padding="18,5,18,5"
+            x:Name="rootStack">
+            <Label 
+                x:Name="TitleLabel"
+                FontSize="24"
+                VerticalOptions="Center" 
+                HorizontalOptions="CenterAndExpand" />
+            <StackLayout
+                IsVisible="False"
+                HeightRequest="36"
+                x:Name="changeReasonStack"
+                Orientation="Horizontal">
+                <Label
+                    Text="Выберете причину"
+                    FontSize="22"
+                    HorizontalOptions="Start"/>
+                <Picker
+                    x:Name="changeReasonPicker"
+                    WidthRequest="100"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"/>
+            </StackLayout>
+            <StackLayout
+                IsVisible="False"
+                    x:Name="commentStack"
+                 HeightRequest="36"
+                    Orientation="Vertical">
+                <Entry
+                    x:Name="reasonEntry"
+                    Placeholder="Укажите причину"
+                    HorizontalOptions="FillAndExpand"></Entry>
+            </StackLayout>
+            <StackLayout
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    Orientation="Horizontal">
+                <StackLayout.Padding>
+                    <OnPlatform
+                            x:TypeArguments="Thickness"
+                            iOS="0, 8, 24, 8"
+                            Android="8" />
+                </StackLayout.Padding>
+                <StackLayout.Spacing>
+                    <OnPlatform
+                            x:TypeArguments="x:Double"
+                            iOS="24"
+                            Android="0" />
+                </StackLayout.Spacing>
+                <Button
+                        x:Name="OkButton"
+                        Text="OK"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Key=SoftIngBarTextColor}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="38"
+                        Clicked="Ok_Clicked" />
+                <Button
+                    x:Name="CancelButton"
+                    Text="Отмена"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Key=SoftIngBarTextColor}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="38"
+                        Clicked="Cancel_Clicked"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+    </popups:PopupPage >

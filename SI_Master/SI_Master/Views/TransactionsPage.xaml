@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:SI_Master.Controls"
+             mc:Ignorable="d"
+             Title="{Binding Title}"
+             x:Class="SI_Master.Views.TransactionsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="filterButton" Clicked="FilterButton_Clicked" IconImageSource="ic_filter"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout
+            Orientation="Vertical"
+            Spacing="0">
+            <SearchBar 
+                x:Name="searchBar"
+                TextChanged="SearchBarTextChanged"
+                Placeholder="Поиск" />
+            <ListView
+            ItemsSource="{Binding ItemSource}"
+                CachingStrategy="RecycleElement"
+            x:Name="TransactionsListView"
+                SelectionMode="None" 
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            HasUnevenRows="true"
+            BackgroundColor="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10" Margin="0, 3, 0, 3" BorderColor="LightGray"  CornerRadius="5" HasShadow="false">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="1.3*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        Grid.Column="0"
+                                        Grid.Row="0">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding ForMatedDateStr}" HorizontalOptions="StartAndExpand" FontSize="Medium"
+                                           FontAttributes="Bold"/>
+                                            <ContentView BackgroundColor="{Binding StatusColor}" Padding="10, 5, 10, 5" VerticalOptions="Center">
+                                                <Label Text="{Binding StatusText}" VerticalTextAlignment="Center" HorizontalOptions="End" 
+                                                   TextColor="White" FontSize="Small"  />
+                                            </ContentView>
+                                        </StackLayout>
+                                        <Label Text="{Binding CardNumberStr}" FontAttributes="Bold" FontSize="Large" TextColor="{Binding BalanceColor}" />
+                                        <Label Text="{Binding Supplier}" FontSize="Medium" TextColor="Gray"  IsVisible="{Binding IsNotReward}"/>
+                                    </StackLayout>
+                                    <StackLayout
+                                        Orientation="Vertical"
+                                        Grid.Row="0"
+                                        Grid.Column="1">
+                                        <Label Text="{Binding FuelAmountAndUnit}" FontAttributes="None" FontSize="18" TextColor="{Binding BalanceColor}" IsVisible="{Binding IsNotReward}"/>
+                                        <Label Text="{Binding ClientPriceWithRubles}" FontAttributes="None" FontSize="18" TextColor="{Binding BalanceColor}" IsVisible="{Binding IsNotReward}"/>
+                                        <Label Text="{Binding RealSumWithRubles}" FontAttributes="Bold" FontSize="18" TextColor="{Binding BalanceColor}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

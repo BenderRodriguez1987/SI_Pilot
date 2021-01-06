@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.Views.WorksView">
+    <ContentView.Content>
+        <StackLayout
+              Orientation="Horizontal">
+            <Label
+                  VerticalOptions="Start"
+                  HorizontalOptions="StartAndExpand"
+                  Text="{Binding Title}"/>
+            <Label
+                VerticalOptions="Start"
+                HorizontalOptions="End"
+                HorizontalTextAlignment="End"
+                WidthRequest="100"
+                Text="{Binding Count}"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

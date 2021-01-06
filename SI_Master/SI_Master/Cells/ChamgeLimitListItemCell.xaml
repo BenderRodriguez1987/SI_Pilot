@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.Cells.ChamgeLimitListItemCell">
+    <ContentView.Content>
+        <StackLayout
+            Orientation="Vertical"
+            BackgroundColor="White">
+            <Label Text="{Binding LimitsName}"
+                   FontSize="22"
+                   TextColor="Black"
+                   Margin="10, 5, 10 ,5"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="Start" />
+            <StackLayout
+                Margin="10, 5, 10 ,5"
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="40"
+                Orientation="Horizontal">
+                <Entry
+                    x:Name="FuelEntry"
+                    HorizontalOptions="End"
+                    WidthRequest="80"
+                    Placeholder="Лимит"
+                    Keyboard="Numeric"
+                    FontSize="18"
+                    Text="{Binding FuelAmount}"/>
+                <Picker
+                HorizontalOptions="End"
+                    WidthRequest="80"
+                VerticalOptions="CenterAndExpand"
+                ItemsSource="{Binding FuelTypesList}"
+                    SelectedItem="{Binding CurrentFuelType}"/>
+                <Picker
+                HorizontalOptions="End"
+                    WidthRequest="100"
+                VerticalOptions="CenterAndExpand"
+                ItemsSource="{Binding LimitTypes}"
+                    SelectedItem="{Binding CurrentlimitType}"/>
+                <!--<Picker
+                HorizontalOptions="End"
+                    WidthRequest="80"
+                VerticalOptions="CenterAndExpand"
+                ItemsSource="{Binding Country}"/>
+                <Picker
+                HorizontalOptions="End"
+                    WidthRequest="80"
+                VerticalOptions="CenterAndExpand"
+                ItemsSource="{Binding RefuilimgStations}"/>-->
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

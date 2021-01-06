@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.Cells.MenuItemCell">
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical" BackgroundColor="Transparent" Spacing="0">
+            <ContentView Padding="15,8" IsVisible="{Binding IsMenuItem}">
+                <Grid
+                    ColumnSpacing="0"
+                    RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" HorizontalTextAlignment="Start"
+                                  FontFamily="{StaticResource SoftIngFontIcons}" Text="{Binding Icon}" TextColor="{Binding IconColor}" FontSize="30" FontAttributes="Bold" />
+                    <Label Grid.Column="1" 
+                                VerticalTextAlignment="Center" Text="{Binding Title}" FontSize="22" TextColor="{StaticResource Key=MenuItemTextColor}" BackgroundColor="Transparent" />
+                </Grid>
+            </ContentView>
+            <BoxView HeightRequest="2" Margin="15, 0, 8, 0" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                                     Color="{StaticResource Key=menuSeparatorColor}" IsVisible="{Binding IsSeparator}" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

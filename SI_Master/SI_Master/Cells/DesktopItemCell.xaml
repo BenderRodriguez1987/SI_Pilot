@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.Cells.DesktopItemCell">
+    <ContentView.Content>
+        <Frame Padding="10" Margin="0, 3, 0, 3" BorderColor="LightGray"  CornerRadius="5" HasShadow="false">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding Caption}" HorizontalOptions="StartAndExpand" FontSize="Medium"
+                                           FontAttributes="Bold"/>
+                    <ContentView BackgroundColor="{Binding StatusColor}" Padding="10, 5, 10, 5" VerticalOptions="Center">
+                        <Label Text="{Binding StatusText}" VerticalTextAlignment="Center" HorizontalOptions="End" 
+                                                   TextColor="White" FontSize="Small"  />
+                    </ContentView>
+                </StackLayout>
+                <Label Text="{Binding BalanceText}" FontAttributes="Bold" FontSize="Large" TextColor="{Binding BalanceColor}" />
+                <Label Text="{Binding Update}" FontSize="Micro" TextColor="Gray"  />
+            </StackLayout>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

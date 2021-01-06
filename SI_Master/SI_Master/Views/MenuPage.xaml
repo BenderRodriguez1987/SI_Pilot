@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:Cells="clr-namespace:SI_Master.Cells"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.Views.MenuPage"
+             Title="ООО Название">
+             
+    <StackLayout Spacing="0">
+
+        <StackLayout x:Name="userInfo" Orientation="Vertical" VerticalOptions="Fill" HorizontalOptions="Fill"
+                     HeightRequest="28"
+                     BackgroundColor="{StaticResource Key=menuHeaderBackColor}">
+
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer
+                    Tapped="UserInfo_Tapped"
+                    NumberOfTapsRequired="1" />
+            </StackLayout.GestureRecognizers>
+
+            <!--<Image Source="user.png" WidthRequest="140" HeightRequest="140" Aspect="AspectFit" />-->
+            <Label x:Name="InfoLabel" Margin="5,5,0,5" HorizontalOptions="StartAndExpand" VerticalOptions="Center"
+                    FontSize="Large" TextColor="{StaticResource Key=menuHeaderTextColor}" />
+        </StackLayout>
+        <Grid
+            BackgroundColor="{StaticResource Key=MenuItemsBackground}"
+            VerticalOptions="EndAndExpand"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <ListView x:Name="ListViewMenu"
+                      Grid.Row="0"
+                  BackgroundColor="{StaticResource Key=MenuItemsBackground}"
+                  VerticalOptions="FillAndExpand" 
+                  SeparatorVisibility="None" HasUnevenRows="true"
+                  CachingStrategy="RetainElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Cells:MenuItemCell/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout
+                Orientation="Vertical"
+                VerticalOptions="End"
+                Grid.Row="0"
+                Margin="0,0,0,60"
+                BackgroundColor="Transparent">
+                <Image
+                x:Name="LogoImage"
+                Source="new_logo.png"
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="170"
+                    Margin="0,0,0,20"
+                HeightRequest="170"
+                Opacity="0.3">
+                </Image>
+                <Label Text="© СОФТИНЖИНИРИНГ, 2020 г." HorizontalOptions="Center" 
+                               TextColor="{StaticResource Key=MenuItemTextColor}" />
+                <Label Text="Мастер. Версия 1.0 Сборка 20200429"  HorizontalOptions="Center" 
+                               TextColor="{StaticResource Key=MenuItemTextColor}"/>
+            </StackLayout>
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

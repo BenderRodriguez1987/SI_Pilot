@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--Global Styles-->
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Color x:Key="SoftIngBarPrimari">#F2F4F5</Color>
+            <Color x:Key="SoftIngBarTextColor">#024AA6</Color>
+            <Color x:Key="textColor">Black</Color>
+            <Color x:Key="hyperlinkTextColor">#082C63</Color>
+            <Color x:Key="PositiveBalanceBackgroundColor">#3ac47d</Color>
+            <Color x:Key="NegariveBalanceBackgroundColor">#d92550</Color>
+            <Color x:Key="buttonBackColor">#144CA1</Color>
+            <Color x:Key="buttonTextColor">White</Color>
+
+            <Color x:Key="menuHeaderBackColor">#F2F4F5</Color>
+            <Color x:Key="menuHeaderTextColor">#024AA6</Color>
+            <Color x:Key="menuItemBackColor">White</Color>
+            <Color x:Key="menuItemTextColor">Black</Color>
+            <Color x:Key="menuSeparatorColor">LightGray</Color>
+
+            <Color x:Key="toolBarBackColor">#144CA1</Color>
+            <Color x:Key="toolBarTextColor">White</Color>
+
+            <Color x:Key="entryBackColor">Transparent</Color>
+            <Color x:Key="entryTextColor">Black</Color>
+            <Color x:Key="MenuItemsBackground">#FFFFFF</Color>
+            <Color x:Key="MenuItemTextColor">#657078</Color>
+            <Color x:Key="backgroundGray">#6c757d</Color>
+            <Color x:Key="backgroundLightBlue">#2196F3</Color>
+            <Color x:Key="backgroundBlue">#144CA1</Color>
+
+            <Color x:Key="invalidEntryCaptionTextColor">Red</Color>
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource SoftIngBarPrimari}" />
+                <Setter Property="BarTextColor" Value="{StaticResource SoftIngBarTextColor}" />
+            </Style>
+
+            <OnPlatform x:Key="SoftIngFontIcons" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="Pe-icon-7-stroke" />
+                <On Platform="Android" Value="Pe-icon-7-stroke.ttf#SoftIngFontIcons" />
+            </OnPlatform>
+        </ResourceDictionary>
+    </Application.Resources>
+    
+</Application>
