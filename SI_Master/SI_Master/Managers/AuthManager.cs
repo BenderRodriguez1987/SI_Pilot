@@ -10,12 +10,16 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Newtonsoft.Json;
+using Plugin.Settings.Abstractions;
+using Plugin.Settings;
 
 [assembly: Dependency(typeof(AuthManager))]
 namespace SI_Master.Managers
 {
     public class AuthManager : IAuthManager
     {
+        private const string KEY_TOKEN = "token";
+        private static readonly ISettings _settings = CrossSettings.Current;
         INetworkService netwrokSevice = DependencyService.Get<INetworkService>();
         IDeviceInfo deviceInfo = DependencyService.Get<IDeviceInfo>();
         IAuthSettings authSettings = DependencyService.Get<IAuthSettings>();
@@ -27,7 +31,7 @@ namespace SI_Master.Managers
         {
             object[] args = new object[1];
             args[1] = user;
-            //Answer answer = await netwrokSevice.NetworkRequest(NetworkService.TaskType.Login, null , user, null);
+           //Answer answer = await netwrokSevice.NetworkRequest(NetworkService.TaskType.Login, null , user, null);
             Answer answer = new Answer();
             return answer;
         }
@@ -65,16 +69,16 @@ namespace SI_Master.Managers
             UserAuthData currentUser = authSettings.ActiveUser();
             AuthData authData = new AuthData()
             {
-                //Client = currentUser.Client,
-                //Token = currentUser.Token,
-                //Shared = Shared,
-                //SharedId = SharedID,
-                //DeviceId = deviceInfo.GetIdentifier(),
-                Client = "329bd8",
-                Token = "h4+N7hREXT39jNIdjr1L8j9GaNnAIFcxorlDZRR2Jc0=",
+                Client = currentUser.Client,
+                Token = currentUser.Token,
                 Shared = Shared,
                 SharedId = SharedID,
-                DeviceId = "device_navigator",
+                DeviceId = deviceInfo.GetIdentifier(),
+                //Client = "329bd8",
+                //Token = "h4+N7hREXT39jNIdjr1L8j9GaNnAIFcxorlDZRR2Jc0=",
+                //Shared = Shared,
+                //SharedId = SharedID,
+                //DeviceId = "device_navigator",
             };
 
             //{
@@ -98,23 +102,24 @@ namespace SI_Master.Managers
                 Token = user.Token,
                 Shared = user.Shared,
                 SharedId = user.SharedId,
-                DeviceId = "device_navigator",
+                DeviceId = deviceInfo.GetIdentifier(),
                 FCMToken = FCMToken
             };
-                //{
-                //    Shared = Shared,
-                //    SharedId = SharedID,
-                //    DeviceId = deviceInfo.GetIdentifier()
-                //};
-                //    foreach(var data in authdata) {
-                //    List<string> clientsList = new List<string>();
-                //    clientsList.Add(data.Client);
-                //    fcmAuthdata.Client = data.Client;
-                //    List<string> tokenList = new List<string>();
-                //    tokenList.Add(data.Token);
-                //    fcmAuthdata.Token = data.Token;
-                //    fcmAuthdata.FCMToken = CrossFirebasePushNotification.Current.Token;
-                //};
+            //{
+            //    Shared = Shared,
+            //    SharedId = SharedID,
+            //    DeviceId = deviceInfo.GetIdentifier()
+            //};
+            //    foreach(var data in authdata) {
+            //    List<string> clientsList = new List<string>();
+            //    clientsList.Add(data.Client);
+            //    fcmAuthdata.Client = data.Client;
+            //    List<string> tokenList = new List<string>();
+            //    tokenList.Add(data.Token);
+            //    fcmAuthdata.Token = data.Token;
+            //    fcmAuthdata.FCMToken = CrossFirebasePushNotification.Current.Token;
+            //};
+            _settings.AddOrUpdateValue(KEY_TOKEN, FCMToken);
                await netwrokSevice.MemorizeFCMToken(fcmAuthdata);
         }
 

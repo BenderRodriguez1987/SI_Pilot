@@ -67,7 +67,7 @@ namespace SI_Master.Views
                         MenuPages.Add(id, new NavigationPage(new DashboardPage()));
                         break;
                     case (int)MenuItemType.ChangeUser:
-                        MenuPages.Add(id, new NavigationPage(new LoginPage(false)));
+                        MenuPages.Add(id, new NavigationPage(new LoginPage()));
                         break;
                     case (int)MenuItemType.Exit:
                         if (await DisplayAlert("Выход", "Закрыть приложение?", "OK", "Отмена")) System.Diagnostics.Process.GetCurrentProcess().Kill();

@@ -104,5 +104,40 @@ namespace SI_Master.Settings
             }
             return currentUser;
         }
+
+        public bool RemoveVisitId(string visit_id)
+        {
+            Dictionary<string, string> visit = ReadVisitId();
+            if (visit != null)
+            {
+                visit.Clear();
+                AddOrUpdateVisitId(visit);
+                return true;
+            }
+            return false;
+        }
+
+        public void AddOrUpdateVisitId(Dictionary<string, string> visit)
+        {
+            string json = JsonConvert.SerializeObject(visit, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeNonAscii });
+            CrossSettings.Current.AddOrUpdateValue("visit_id", json);
+        }
+
+        public Dictionary<string, string> ReadVisitId()
+        {
+            Dictionary<string, string> visit_id = new Dictionary<string, string>();
+            if (CrossSettings.Current.Contains("visit_id"))
+            {
+                try
+                {
+                    visit_id = JsonConvert.DeserializeObject<Dictionary<string, string>>(CrossSettings.Current.GetValueOrDefault("visit_id", ""),
+                        new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeNonAscii });
+                    return visit_id;
+                }
+                catch
+                { }
+            }
+            return visit_id;
+        }
     }
 }

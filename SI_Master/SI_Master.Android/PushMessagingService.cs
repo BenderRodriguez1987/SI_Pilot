@@ -5,6 +5,7 @@ using Android.Support.V4.App;
 using Firebase.Messaging;
 using SI_Master.Managers;
 using SI_Master.Services.PushService;
+using SI_Master.Settings;
 using Xamarin.Forms;
 
 namespace SI_Master.Droid
@@ -37,6 +38,7 @@ namespace SI_Master.Droid
             }
             if (data != null)
             {
+                ShowNotification("Изменился статус заказа","Проверьте изменения в приложении");
                 pushService.OnDataPushReceived(data);
             }
         }

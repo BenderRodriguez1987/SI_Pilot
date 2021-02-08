@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using SI_Master.Models;
 using SI_Master.Services.PushService;
+using SI_Master.Settings;
 using SI_Master.ViewModels.QRCodePage;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,11 @@ namespace SI_Master.Views {
     public partial class QRCodePage : ContentPage {
 
         IQRCodePageViewModel viewModel = DependencyService.Get<IQRCodePageViewModel>();
+        IAuthSettings authsetting = DependencyService.Get<IAuthSettings>();
         ZXingBarcodeImageView qrCode;
+        public const string STATUS_KEY = "status";
+        public const string VISIT_ID_KEY = "visit_id";
+        public const string QR_KEY = "qr";
 
         ZXingBarcodeImageView GenerateQR(string codeValue)
         {
@@ -56,7 +61,29 @@ namespace SI_Master.Views {
             base.OnAppearing();
             if(qrCode == null)
             {
-                await SetQRCode(false);
+                var visitstate = authsetting.ReadVisitId();
+                if(visitstate.Count > 0)
+                {
+                    string status = visitstate[STATUS_KEY];
+                    switch (status)
+                    {
+                        case "6":
+                            await SetWorksList(visitstate[VISIT_ID_KEY]);
+                            break;
+                        case "10":
+                            ShowClosedQRCode(visitstate[QR_KEY]);
+                            break;
+                        case "12":
+                            await SetQRCode(true);
+                            break;
+                        case "13":
+                            await SetQRCode(true);
+                            break;
+                    }
+                } else
+                {
+                    await SetQRCode(false);
+                }
             }
             MessagingCenter.Subscribe<PushService, string>(this, PushService.STATUS_6, async (obj, visitId) =>
             {
@@ -97,7 +124,7 @@ namespace SI_Master.Views {
                     HorizontalOptions = LayoutOptions.FillAndExpand
                 };
                 GenerateButton.IsVisible = false;
-                rootLayout.Children.Clear();
+                //rootLayout.Children.Clear();
                 rootLayout.Children.Add(rootStack);
                 qrCode = null;
                 qrCode = GenerateQR(qr);

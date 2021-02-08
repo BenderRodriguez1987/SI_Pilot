@@ -3,61 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behavior="clr-namespace:SI_Master.Helpers"
              mc:Ignorable="d"
+             Title="Авторизация"
              x:Name="loginPage"
              x:Class="SI_Master.Views.LoginPage">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
 
-            <ScrollView x:Name="loginGroup" IsVisible="False" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <ScrollView x:Name="loginGroup" IsVisible="{Binding LoginGroupVisible}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <StackLayout Spacing="0" Margin="20, 20, 20, 50" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
-                    <Image Source="logo.png" HorizontalOptions="Center" Margin="0, 0, 0, 15" HeightRequest="80" WidthRequest="80" />
-                    <Entry x:Name="loginEntry" Placeholder="Логин" TextColor="{StaticResource Key=entryTextColor}"
-                           BackgroundColor="{StaticResource Key=entryBackColor}" >
-                        <Entry.Keyboard>
-                            <Keyboard x:FactoryMethod="Create">
-                                <x:Arguments>
-                                    <KeyboardFlags>Suggestions,CapitalizeCharacter</KeyboardFlags>
-                                </x:Arguments>
-                            </Keyboard>
-                        </Entry.Keyboard>
-                    </Entry>
-                    <Label x:Name="loginInvalidCaption" Text="Введите действующий логин" FontSize="Micro" 
-                           TextColor="{StaticResource Key=invalidEntryCaptionTextColor}" IsVisible="False"  />
-                    <Entry x:Name="passwordEntry" Margin="0, 5, 0, 0" Placeholder="Номер телефона" 
-                           TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}" />
-                    <Label x:Name="passwordInvalidCaption" Text="Обязательно к заполнению" FontSize="Micro" 
-                           TextColor="{StaticResource Key=invalidEntryCaptionTextColor}" IsVisible="False"  />
-                    <!--<Entry x:Name="codeEntry" Margin="0, 5, 0, 0" Placeholder="Код" Keyboard="Numeric" 
-                           TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}" />
-                    <Label x:Name="codeInvalidCaption" Text="Обязательно к заполнению" FontSize="Micro"
-                           TextColor="{StaticResource Key=invalidEntryCaptionTextColor}" IsVisible="False" />-->
+                    <StackLayout
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="FillAndExpand">
+                        <Image Source="logo.png" HorizontalOptions="Center" Margin="0, 0, 0, 15" HeightRequest="80" WidthRequest="80" />
+                        <Entry x:Name="loginEntry" Placeholder="Логин" TextColor="{StaticResource Key=entryTextColor}"
+                               BackgroundColor="{StaticResource Key=entryBackColor}" >
+                            <Entry.Keyboard>
+                                <Keyboard x:FactoryMethod="Create">
+                                    <x:Arguments>
+                                        <KeyboardFlags>Suggestions,CapitalizeCharacter</KeyboardFlags>
+                                    </x:Arguments>
+                                </Keyboard>
+                            </Entry.Keyboard>
+                        </Entry>
+                        <Label x:Name="loginInvalidCaption" Text="Введите действующий логин" FontSize="Micro" 
+                               TextColor="{StaticResource Key=invalidEntryCaptionTextColor}" IsVisible="{Binding LoginInvalidCaption}"  />
+                        <!--<Entry x:Name="posEntry" Margin="0, 5, 0, 0" Placeholder="Код точки обслуживания"
+                               TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}" />
+                        <Label x:Name="posInvalidCaption" Text="Обязательно к заполнению" FontSize="Micro" 
+                               TextColor="{StaticResource Key=invalidEntryCaptionTextColor}" IsVisible="{Binding PosInvalidCaption}"  />-->
+                        <Entry x:Name="phoneEntry" Margin="0, 5, 0, 0" Placeholder="Номер телефона"
+                               Keyboard="Telephone"
+                               TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}" >
+                            <Entry.Behaviors>
+                                <behavior:MaskedBehavior Mask="+7XXXXXXXXXX" />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Label x:Name="phoneInvalidCaption" Text="Обязательно к заполнению" FontSize="Micro" 
+                               TextColor="{StaticResource Key=invalidEntryCaptionTextColor}" IsVisible="{Binding PhoneInvalidCaprion}"  />
+                        <!--<Entry x:Name="codeEntry" Margin="0, 5, 0, 0" Placeholder="Код" Keyboard="Numeric" 
+                               TextColor="{StaticResource Key=entryTextColor}" BackgroundColor="{StaticResource Key=entryBackColor}" />
+                        <Label x:Name="codeInvalidCaption" Text="Обязательно к заполнению" FontSize="Micro"
+                               TextColor="{StaticResource Key=invalidEntryCaptionTextColor}" IsVisible="False" />-->
 
-                    <Button x:Name="loginButton" Margin="0, 15, 0, 0" Padding="0, 5, 0, 5" 
-                            HorizontalOptions="FillAndExpand" Text="Войти" Clicked="LoginButton_Clicked" 
-                            BackgroundColor="{StaticResource Key=buttonBackColor}" TextColor="{StaticResource Key=buttonTextColor}" />
+                        <Button x:Name="loginButton" Margin="0, 15, 0, 0" Padding="0, 5, 0, 5" 
+                                HorizontalOptions="FillAndExpand" Text="Войти" Clicked="LoginButton_Clicked" 
+                                BackgroundColor="{StaticResource Key=buttonBackColor}" TextColor="{StaticResource Key=buttonTextColor}" />
 
-                    <ContentView Padding="7" Margin="0, 10, 0, 0" HorizontalOptions="CenterAndExpand">
-                        <ContentView.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Tapped="OtherAccounts_Tapped"
-                                NumberOfTapsRequired="1" />
-                        </ContentView.GestureRecognizers>
-                        <Label x:Name="otherAccountsLabel" Text="Мои учетные записи" TextColor="{StaticResource Key=hyperlinkTextColor}" />
-                    </ContentView>
+                        <ContentView Padding="7" Margin="0, 5, 0, 0" HorizontalOptions="CenterAndExpand">
+                            <ContentView.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="LoginHelp_Tapped"
+                                    NumberOfTapsRequired="1" />
+                            </ContentView.GestureRecognizers>
+                            <Label x:Name="helpLabel" Text="Забыли пароль?" TextColor="{StaticResource Key=hyperlinkTextColor}" />
+                        </ContentView>
 
-                    <ContentView Padding="7" Margin="0, 5, 0, 0" HorizontalOptions="CenterAndExpand">
-                        <ContentView.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Tapped="LoginHelp_Tapped"
-                                NumberOfTapsRequired="1" />
-                        </ContentView.GestureRecognizers>
-                        <Label x:Name="helpLabel" Text="Забыли пароль?" TextColor="{StaticResource Key=hyperlinkTextColor}" />
-                    </ContentView>
+                    </StackLayout>
 
                     <StackLayout VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" Spacing="0">
-                        <Label Text="© СОФТИНЖИНИРИНГ, 2020 г." Margin="0, 0, 0, 10" HorizontalOptions="Center" 
+                        <Label Text="© СОФТИНЖИНИРИНГ, 2021 г." Margin="0, 0, 0, 10" HorizontalOptions="Center" 
                                TextColor="{StaticResource Key=textColor}" />
                         <Label Text="Телефон горячей линии:" HorizontalOptions="Center" 
                                TextColor="{StaticResource Key=textColor}"/>
@@ -77,59 +84,14 @@
                 </StackLayout>
             </ScrollView>
 
-            <StackLayout x:Name="userSelectionGroup" IsVisible="False" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"
-                             Spacing="0" Margin="20, 20, 20, 50">
-
-                <!--<Image Source="{local:ImageResource Source=Navigator.Images.Users.png}" HorizontalOptions="Center" Margin="0, 0, 0, 20" />-->
-                <ListView x:Name="usersListView" SeparatorVisibility="Default" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-                              HasUnevenRows="True" SeparatorColor="LightGray" ItemsSource="{Binding Users}" ItemSelected="UsersListView_ItemSelected" 
-                              CachingStrategy="RetainElement"  Header="" Footer="">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Frame
-                                    Padding="0"
-                                    HeightRequest="42"
-                                    BackgroundColor="{Binding SelectedUserBackground}"
-                                    CornerRadius="5">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Source="iv_ok.png" Grid.Column="0" IsVisible="{Binding isActive}"/>
-                                        <Label Text="{Binding Caption}" FontSize="Large" Grid.Column="1" TextColor="{StaticResource Key=textColor}" VerticalTextAlignment="Center" />
-                                        <Button x:Name="removeUserButton" BorderWidth="0" Grid.Column="2"  FontFamily="{StaticResource SoftIngFontIcons}" TextColor="Red"
-                                                      Margin="0,0,5,0" Text="{Binding RemoveButtonText}" FontSize="24" FontAttributes="Bold" 
-                                                BackgroundColor="Transparent"
-                                                     Command="{Binding Source={x:Reference loginPage}, Path=BindingContext.RemoveUserClicked}"
-                                                     CommandParameter="{Binding .}"  />
-                                    </Grid>
-                                </Frame>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
-                <Button x:Name="selectButton" Margin="0, 20, 0, 0" Padding="0, 5, 0, 5" IsVisible="False"
-                            HorizontalOptions="FillAndExpand" Text="Войти" Clicked="SelectButton_Clicked" 
-                            BackgroundColor="{StaticResource Key=buttonBackColor}" TextColor="{StaticResource Key=buttonTextColor}" />
-
-                <ContentView Padding="10" Margin="0, 5, 0, 0" HorizontalOptions="CenterAndExpand">
-                    <ContentView.GestureRecognizers>
-                        <TapGestureRecognizer
-                                Tapped="NewAccount_Tapped"
-                                NumberOfTapsRequired="1" />
-                    </ContentView.GestureRecognizers>
-                    <Label x:Name="newAccountLabel" Text="Добавить учетную запись" TextColor="{StaticResource Key=hyperlinkTextColor}" />
-                </ContentView>
-
-            </StackLayout>
-
-            <ActivityIndicator x:Name="busyIndicator" IsVisible="False"
-                    HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                    Color="{StaticResource Key=buttonBackColor}" AbsoluteLayout.LayoutFlags="All" />
+            <ActivityIndicator x:Name="busyIndicator" 
+                               IsVisible="{Binding IsBusy}"
+                               IsRunning="True"
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center" 
+                               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                               Color="{StaticResource Key=buttonBackColor}" 
+                               AbsoluteLayout.LayoutFlags="All" />
 
         </AbsoluteLayout>
     </ContentPage.Content>

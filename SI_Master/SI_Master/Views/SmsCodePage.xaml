@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SI_Master.Views.SmsCodePage">
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+            <ScrollView x:Name="smsCodeGroup" IsVisible="{Binding SmsCodeGroupVisible}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout Spacing="0" Margin="20, 20, 20, 50" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+                    <StackLayout
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="FillAndExpand">
+                        <Image Source="logo.png" HorizontalOptions="Center" Margin="0, 0, 0, 15" HeightRequest="80" WidthRequest="80" />
+                        <Entry x:Name="codeEntry" Placeholder="SMS Код" TextColor="{StaticResource Key=entryTextColor}"
+                               HorizontalTextAlignment="Center" WidthRequest="200"
+                               HorizontalOptions="CenterAndExpand"
+                               Keyboard="Numeric"
+                               BackgroundColor="{StaticResource Key=entryBackColor}"/>
+                        <Label x:Name="codeInvalidCaption" Text="Обязательно к заполнению" FontSize="Micro" 
+                               WidthRequest="200" HorizontalOptions="CenterAndExpand"
+                               Margin="10, 0, 0, 0"
+                               TextColor="{StaticResource Key=invalidEntryCaptionTextColor}" IsVisible="{Binding CodeInvalidCaption}"  />
+                        <Button x:Name="verifyButton" Margin="0, 15, 0, 0" Padding="0, 5, 0, 5" 
+                                HorizontalOptions="FillAndExpand" Text="Подтвердить" Clicked="VerifyButton_Clicked" 
+                                BackgroundColor="{StaticResource Key=buttonBackColor}" TextColor="{StaticResource Key=buttonTextColor}" />
+                    </StackLayout>
+
+                    <StackLayout VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" Spacing="0">
+                        <Label Text="© СОФТИНЖИНИРИНГ, 2021 г." Margin="0, 0, 0, 10" HorizontalOptions="Center" 
+                               TextColor="{StaticResource Key=textColor}" />
+                        <Label Text="Телефон горячей линии:" HorizontalOptions="Center" 
+                               TextColor="{StaticResource Key=textColor}"/>
+                        <ContentView Padding="5" HorizontalOptions="Center">
+                            <ContentView.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="PhoneLabel_Tapped" NumberOfTapsRequired="1" />
+                            </ContentView.GestureRecognizers>
+                            <Label x:Name="phoneLabel" Text="8 (800) 30-15-7-15" TextColor="{StaticResource Key=hyperlinkTextColor}" />
+                        </ContentView>
+                        <ContentView Margin="0, 5, 0, 0" Padding="5" HorizontalOptions="Center">
+                            <ContentView.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="PrivacyPolicyLabel_Tapped" NumberOfTapsRequired="1" />
+                            </ContentView.GestureRecognizers>
+                            <Label x:Name="privacyPolicyLabel" Text="Политика конфиденциальности" TextColor="{StaticResource Key=hyperlinkTextColor}" />
+                        </ContentView>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+            <ActivityIndicator x:Name="busyIndicator" 
+                               IsVisible="{Binding IsBusy}"
+                               IsRunning="True"
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center" 
+                               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                               Color="{StaticResource Key=buttonBackColor}" 
+                               AbsoluteLayout.LayoutFlags="All" />
+
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

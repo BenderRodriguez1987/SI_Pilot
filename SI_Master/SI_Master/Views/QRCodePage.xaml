@@ -6,17 +6,21 @@
              mc:Ignorable="d"
              x:Class="SI_Master.Views.QRCodePage">
     <ContentPage.Content>
-        <StackLayout
+        <ScrollView
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand">
+            <StackLayout
             x:Name="rootLayout"
             VerticalOptions="FillAndExpand"
-            Padding="0,0,0,10">
-            <Button
+            Padding="0,0,0,36">
+                <Button
                 x:Name="GenerateButton"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="Center"
                 Text="Получить новый QR код"
                 CornerRadius="3"
                 BackgroundColor="{StaticResource Key=buttonBackColor}" TextColor="{StaticResource Key=buttonTextColor}"></Button>
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

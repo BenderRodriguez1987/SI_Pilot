@@ -14,5 +14,10 @@ namespace SI_Master.Settings
         List<UserAuthData> Read();
 
         UserAuthData ActiveUser();
+
+        bool RemoveVisitId(string visit_id);
+        void AddOrUpdateVisitId(Dictionary<string, string> visit);
+
+        Dictionary<string, string> ReadVisitId();
     }
 }
