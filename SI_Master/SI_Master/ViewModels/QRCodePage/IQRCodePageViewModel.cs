@@ -10,5 +10,7 @@ namespace SI_Master.ViewModels.QRCodePage
     {
         Task<string> LoadQRCode();
         Task<NegotiatedOrder> LoadWorks(string visit_id);
+
+        Task<VisitStatus> LoadOrderState(string visit_id);
     }
 }

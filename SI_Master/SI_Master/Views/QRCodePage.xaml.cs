@@ -26,13 +26,10 @@ namespace SI_Master.Views {
         public const string VISIT_ID_KEY = "visit_id";
         public const string QR_KEY = "qr";
 
-        ZXingBarcodeImageView GenerateQR(string codeValue)
-        {
-            var qrCode = new ZXingBarcodeImageView
-            {
+        ZXingBarcodeImageView GenerateQR(string codeValue) {
+            var qrCode = new ZXingBarcodeImageView {
                 BarcodeFormat = BarcodeFormat.QR_CODE,
-                BarcodeOptions = new QrCodeEncodingOptions
-                {
+                BarcodeOptions = new QrCodeEncodingOptions {
                     Height = 350,
                     Width = 350
                 },
@@ -45,107 +42,102 @@ namespace SI_Master.Views {
             qrCode.HeightRequest = 350;
             return qrCode;
         }
-        public QRCodePage()
-        {
+        public QRCodePage() {
             Title = "QR код";
             InitializeComponent();
             BindingContext = this;
-            GenerateButton.Clicked += async (sender, args) =>
-            {
-                await SetQRCode(true);
+            GenerateButton.Clicked += async (sender, args) => {
+                SetQRCode(true, true);
             };
         }
 
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            if(qrCode == null)
-            {
                 var visitstate = authsetting.ReadVisitId();
-                if(visitstate.Count > 0)
-                {
-                    string status = visitstate[STATUS_KEY];
-                    switch (status)
-                    {
-                        case "6":
-                            await SetWorksList(visitstate[VISIT_ID_KEY]);
-                            break;
-                        case "10":
-                            ShowClosedQRCode(visitstate[QR_KEY]);
-                            break;
-                        case "12":
-                            await SetQRCode(true);
-                            break;
-                        case "13":
-                            await SetQRCode(true);
-                            break;
+                if(visitstate.Count > 0) {
+                VisitStatus status = await viewModel.LoadOrderState(visitstate[VISIT_ID_KEY]);
+
+                int visit_int = status.Status;
+
+                if (0 < visit_int & visit_int<= 5) {
+                    SetQRCode(true, true);
+                }
+                if(visit_int >= 6 & visit_int < 10) {
+                    SetWorksList(visitstate[VISIT_ID_KEY]);
+                }
+              if(visit_int >=10 & visit_int < 12) {
+                    // сделано так, что если не получен пуш с кодом, то удалять заезд и начинать с начала ибо пока что более неоткуда брать этот код
+                    if (visitstate.ContainsKey(QR_KEY)) {
+                        SetWorksList(visitstate[VISIT_ID_KEY]);
+                        ShowClosedQRCode(visitstate[QR_KEY]);
                     }
-                } else
-                {
-                    await SetQRCode(false);
+                    else {
+                        authsetting.RemoveVisitId(visit_int.ToString());
+                        SetQRCode(true, true);
+
+                    }
+                }
+                if (visit_int == 12 || visit_int == 13) {
+                    authsetting.RemoveVisitId(visit_int.ToString());
+                    SetQRCode(true, true);
                 }
             }
-            MessagingCenter.Subscribe<PushService, string>(this, PushService.STATUS_6, async (obj, visitId) =>
-            {
-                await SetWorksList(visitId);
+            else {
+                SetQRCode(true, true);
+            }
+            MessagingCenter.Subscribe<PushService, string>(this, PushService.STATUS_6, (obj, visitId) => {
+                SetWorksList(visitId);
             });
-            MessagingCenter.Subscribe<PushService, string>(this, PushService.STATUS_10,  (obj, qr) =>
-            {
+            MessagingCenter.Subscribe<PushService, string>(this, PushService.STATUS_10,  (obj, qr) => {
                  ShowClosedQRCode(qr);
             });
-            MessagingCenter.Subscribe<PushService, string>(this, PushService.STATUS_12, async (obj, visitId) =>
-            {
-                await SetQRCode(true);
+            MessagingCenter.Subscribe<PushService, string>(this, PushService.STATUS_12, (obj, visitId) => {
+                SetQRCode(true, true);
             });
-            MessagingCenter.Subscribe<PushService, string>(this, PushService.STATUS_13, async (obj, visitId) =>
-            {
-                await SetQRCode(true);
+            MessagingCenter.Subscribe<PushService, string>(this, PushService.STATUS_13, (obj, visitId) => {
+                SetQRCode(true, false);
             });
 
         }
 
-        protected override void OnDisappearing()
-        {
+        protected override void OnDisappearing()  {
             base.OnDisappearing();
             MessagingCenter.Unsubscribe<PushService, string>(this, PushService.STATUS_10);
             MessagingCenter.Unsubscribe<PushService, string>(this, PushService.STATUS_6);
             MessagingCenter.Unsubscribe<PushService, string>(this, PushService.STATUS_12);
             MessagingCenter.Unsubscribe<PushService, string>(this, PushService.STATUS_13);
+            rootLayout.Children.Clear();
         }
-        void ShowClosedQRCode(string qr)
-        {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                StackLayout rootStack = new StackLayout()
-                {
+        private void ShowClosedQRCode(string qr) {
+            MainThread.BeginInvokeOnMainThread(async () => {
+                StackLayout rootStack = new StackLayout() {
                     WidthRequest = 350,
                     HeightRequest = 350,
                     VerticalOptions = LayoutOptions.FillAndExpand,
                     HorizontalOptions = LayoutOptions.FillAndExpand
                 };
                 GenerateButton.IsVisible = false;
-                //rootLayout.Children.Clear();
                 rootLayout.Children.Add(rootStack);
                 qrCode = null;
                 qrCode = GenerateQR(qr);
                 rootStack.Children.Add(qrCode);
-            });
+            }); 
         }
-        async Task SetWorksList(string visitId)
-        {
-            MainThread.BeginInvokeOnMainThread(async ()  =>
-            {
-                NegotiatedOrder order = await viewModel.LoadWorks(visitId);
 
-                StackLayout rootStack = new StackLayout()
-                {
+        private void SetWorksList(string visitId) {
+            MainThread.BeginInvokeOnMainThread(async ()  => {
+                if (rootLayout.Children.Count > 0) {
+                    rootLayout.Children.RemoveAt(0);
+                }
+                NegotiatedOrder order = await viewModel.LoadWorks(visitId);
+                StackLayout rootStack = new StackLayout() {
                     WidthRequest = 350,
                     HeightRequest = 350,
                     VerticalOptions = LayoutOptions.FillAndExpand,
                     HorizontalOptions = LayoutOptions.FillAndExpand
                 };
                 GenerateButton.IsVisible = false;
-                rootLayout.Children.Clear();
                 rootLayout.Children.Add(rootStack);
                 NegotiatedWoirksView view = new NegotiatedWoirksView();
                 view.Wheels = order.Wheels;
@@ -154,33 +146,45 @@ namespace SI_Master.Views {
             });
         }
 
-        async Task SetQRCode(bool isFinished)
-        {
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                UserDialogs.Instance.ShowLoading();
-                string str = await viewModel.LoadQRCode();
-                if (rootLayout.Children.Count > 1)
-                {
-                    rootLayout.Children.RemoveAt(0);
+        private void SetQRCode(bool isFinished, bool asd) {
+            MainThread.BeginInvokeOnMainThread(async () => {
+                try {
+                    UserDialogs.Instance.ShowLoading();
+                    string str = await viewModel.LoadQRCode();
+                    if (rootLayout.Children.Count > 1)
+                    {
+                        rootLayout.Children.RemoveAt(0);
+                    }
+                    if (isFinished & rootLayout.Children.Count > 0)
+                    {
+                        rootLayout.Children.Clear();
+                    }
+                    StackLayout rootStack = new StackLayout()
+                    {
+                        WidthRequest = 350,
+                        HeightRequest = 350,
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        HorizontalOptions = LayoutOptions.FillAndExpand
+                    };
+                    GenerateButton.IsVisible = true;
+                    rootLayout.Children.Insert(0, rootStack);
+                    if (asd)
+                    {
+                        qrCode = null;
+                        qrCode = GenerateQR(str);
+                        rootStack.Children.Add(qrCode);
+                    }
+                    else
+                    {
+                        Image img = new Image();
+                        rootStack.Children.Add(img);
+                    }
+                    rootStack.Children.Add(GenerateButton);
+                    UserDialogs.Instance.HideLoading();
+                } catch(Exception e) {
+                    System.Diagnostics.Debug.WriteLine(e);
                 }
-                if (isFinished)
-                {
-                    rootLayout.Children.RemoveAt(0);
-                }
-                StackLayout rootStack = new StackLayout()
-                {
-                    WidthRequest = 350,
-                    HeightRequest = 350,
-                    VerticalOptions = LayoutOptions.FillAndExpand,
-                    HorizontalOptions = LayoutOptions.FillAndExpand
-                };
-                GenerateButton.IsVisible = true;
-                rootLayout.Children.Insert(0, rootStack);
-                qrCode = GenerateQR(str);
-                rootStack.Children.Add(qrCode);
-                rootStack.Children.Add(GenerateButton);
-                UserDialogs.Instance.HideLoading();
+
             });
         }
     }

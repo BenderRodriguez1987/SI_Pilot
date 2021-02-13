@@ -12,6 +12,7 @@ namespace SI_Master.REST
         Task<Answer> NetworkRequest(NetworkService.TaskType type, AuthData authData, Dictionary<string, object> filterparams);
         Task<Answer> Login(DeviceRegistration registrationData);
         Task<Answer> GetQRCode(AuthData authData, Geoposition geopos);
+        Task<Answer> GetOrderState(AuthData authData, string visit_id);
         Task<Answer> GetWorksFromVisitId(AuthData authData, string visit_id);
         Task<Answer> CheckUserCredentials(AuthData authData);
 

@@ -10,5 +10,7 @@ namespace SI_Master.Managers.QRCodeManager
     {
         Task<QRObject> GetQRCode();
         Task<NegotiatedOrder> GetWorks(string visit_id);
+
+        Task<VisitStatus> GetOrderStatus(string visit_id);
     }
 }

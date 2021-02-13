@@ -167,6 +167,8 @@ namespace SI_Master.REST
             return answer;
         }
 
+
+
         public async Task<Answer> GetWorksFromVisitId(AuthData authData, string visit_id)
         {
             if (!Initialized)
@@ -267,6 +269,24 @@ namespace SI_Master.REST
             {
                 return ErrorHandler.HandleException(e);
             }
+        }
+
+        public async Task<Answer> GetOrderState(AuthData authData, string visit_id)
+        {
+            if (!Initialized)
+            {
+                Init(baseUrl);
+            }
+            Answer answer = new Answer();
+            try
+            {
+                answer = await api.GetOrderState(authData, visit_id);
+            }
+            catch (Exception e)
+            {
+                return ErrorHandler.HandleException(e);
+            }
+            return answer;
         }
     }
 }

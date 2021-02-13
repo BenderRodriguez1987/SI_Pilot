@@ -115,6 +115,9 @@ namespace SI_Master.REST
         [Post("/pos_nav/step0")]
         Task<Answer> GetQRCode([Query] AuthData authData, [Query] Geoposition geoposition);
 
+        [Post("/pos_nav/check_visit")]
+        Task<Answer> GetOrderState([Query] AuthData authdata, [Query] string visit_id);
+
         [Post("/pos_nav/accept/get_accepted_list")]
         Task<Answer> GetNegotiateWorks([Query] AuthData authdata, [Query] string visit_id);
 

@@ -15,6 +15,12 @@ namespace SI_Master.ViewModels.QRCodePage
     {
         IQRCodeManager qrmanager = DependencyService.Get<IQRCodeManager>();
 
+        public async Task<VisitStatus> LoadOrderState(string visit_id)
+        {
+            VisitStatus visit_state = await qrmanager.GetOrderStatus(visit_id);
+            return visit_state;
+        }
+
         public async Task<string> LoadQRCode()
         {
             QRObject qrobj = await qrmanager.GetQRCode();

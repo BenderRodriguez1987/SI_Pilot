@@ -63,7 +63,10 @@ namespace SI_Master.Views
                     return;
                 var id = (int)((HomeMenuItem)e.SelectedItem).Id;
                 if (id != 10) {
-                    await RootPage.NavigateFromMenu(id);
+                    if(RootPage != null)
+                    {
+                        await RootPage.NavigateFromMenu(id);
+                    }
                 }
             };
             InfoLabel.Text = (authSettings.ActiveUser()).Caption;

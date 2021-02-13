@@ -18,6 +18,25 @@ namespace SI_Master.Managers.QRCodeManager
         IAuthManager authmanager = DependencyService.Get<IAuthManager>();
         INetworkService networkservice = DependencyService.Get<INetworkService>();
 
+        public async Task<VisitStatus> GetOrderStatus(string visit_id)
+        {
+            Answer answer = new Answer();
+            VisitStatus qrobj = new VisitStatus();
+            try
+            {
+                answer = await networkservice.GetOrderState(authmanager.GetAuthData(), visit_id);
+                if (answer != null && answer.ResData is JObject jData)
+                {
+                    qrobj = JsonConvert.DeserializeObject<VisitStatus>(jData.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            return qrobj;
+        }
+
         async public Task<QRObject> GetQRCode()
         {
             Answer answer = new Answer();
