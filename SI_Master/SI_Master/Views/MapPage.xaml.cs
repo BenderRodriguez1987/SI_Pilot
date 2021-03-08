@@ -29,75 +29,76 @@ namespace SI_Master.Views {
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium);
                 var location = await Geolocation.GetLocationAsync(request);
-                Position position = new Position(location.Latitude, location.Longitude);
+                //Position position = new Position(location.Latitude, location.Longitude);
+                Position position = new Position(56.796975, 53.230891);
                 MapSpan mapSpan = new MapSpan(position, 0.01, 0.01);
                 ScreenMap.MoveToRegion(mapSpan);
                 List<Pin> pins = new List<Pin>();
                 pins.Add(new Pin
                 {
-                    Position = new Position(56.8804, 53.2370),
-                    Label = "АЗС"
+                    Position = new Position(56.796975, 53.230891),
+                    Label = "   "
                 });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.8429, 53.2867),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.8347, 53.1203),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.8347, 53.1203),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.8349113, 53.1116808),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.822781, 53.1270012),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.8293204, 53.127043),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.8288236, 53.1286666),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.8255776, 53.1178199),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.8251125, 53.1263353),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.829349, 53.1298458),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = new Position(56.8279394, 53.1044006),
-                    Label = "АЗС"
-                });
-                pins.Add(new Pin
-                {
-                    Position = position,
-                    Label = "I am here"
-                });
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.8429, 53.2867),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.8347, 53.1203),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.8347, 53.1203),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.8349113, 53.1116808),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.822781, 53.1270012),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.8293204, 53.127043),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.8288236, 53.1286666),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.8255776, 53.1178199),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.8251125, 53.1263353),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.829349, 53.1298458),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = new Position(56.8279394, 53.1044006),
+                //    Label = "АЗС"
+                //});
+                //pins.Add(new Pin
+                //{
+                //    Position = position,
+                //    Label = "I am here"
+                //});
                 foreach (var p in pins)
                 {
                     ScreenMap.Pins.Add(p);

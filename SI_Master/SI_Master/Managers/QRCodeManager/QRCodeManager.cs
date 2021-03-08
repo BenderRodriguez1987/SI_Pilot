@@ -4,10 +4,8 @@ using SI_Master.Managers.QRCodeManager;
 using SI_Master.Models;
 using SI_Master.REST;
 using System;
-using System.Collections.Generic;
-
-using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(QRCodeManager))]
@@ -43,10 +41,13 @@ namespace SI_Master.Managers.QRCodeManager
             QRObject qrobj = new QRObject();
             try
             {
-                Geoposition geopos = new Geoposition();
-                geopos.Latitude = "56.85306";
-                geopos.Long = "53.21222";
-
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium);
+                var location = await Geolocation.GetLocationAsync(request);
+                Geoposition geopos = new Geoposition
+                {
+                    Latitude = location.Latitude.ToString(),
+                    Long = location.Longitude.ToString()
+                };
                 answer = await networkservice.GetQRCode(authmanager.GetAuthData(), geopos);
                 if (answer != null && answer.ResData is JObject jData)
                 {
@@ -56,6 +57,22 @@ namespace SI_Master.Managers.QRCodeManager
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
+                Geoposition geopos = new Geoposition
+                {
+                    Latitude = "0.0",
+                    Long = "0.0"
+                };
+                try
+                {
+                    answer = await networkservice.GetQRCode(authmanager.GetAuthData(), geopos);
+                    if (answer != null && answer.ResData is JObject jData)
+                    {
+                        qrobj = JsonConvert.DeserializeObject<QRObject>(jData.ToString());
+                    }
+                } catch(Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
             }
             return qrobj;
         }

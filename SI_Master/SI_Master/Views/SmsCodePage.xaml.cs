@@ -74,7 +74,7 @@ namespace SI_Master.Views
 
         private void OpenMainPage()
         {
-            Application.Current.MainPage = new NavigationPage(new MainPage(0));
+            Application.Current.MainPage = new MainPage(0);
         }
 
         private void ShowError(string message)

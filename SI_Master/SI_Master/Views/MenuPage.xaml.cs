@@ -17,7 +17,7 @@ namespace SI_Master.Views
     {
 
         IAuthSettings authSettings = DependencyService.Get<IAuthSettings>();
-        MainPage RootPage {get => Application.Current.MainPage as MainPage; }
+        MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         List<HomeMenuItem> menuItems;
 
         public MenuPage()
@@ -25,7 +25,7 @@ namespace SI_Master.Views
             InitializeComponent();
             menuItems = new List<HomeMenuItem>
             {
-                //new HomeMenuItem {Id = MenuItemType.Map, Title="Карта", Icon = "\ue65e", IconColor = "#fa71cd" },
+                new HomeMenuItem {Id = MenuItemType.Map, Title="Карта", Icon = "\ue65e", IconColor = "#fa71cd" },
                 new HomeMenuItem {Id = MenuItemType.QRCode, Title="QR код", Icon = "\ue664", IconColor = "#f68084" },
                // new HomeMenuItem {Id = MenuItemType.BarCodeScaner, Title="Сканировать", Icon = "\ue64d", IconColor = "#3cba92" },
                 //new HomeMenuItem {Id = MenuItemType.DeskTop, Title="Рабочий стол", Icon = "\ue65e", IconColor = "#fa71cd" },
@@ -55,7 +55,7 @@ namespace SI_Master.Views
                     break;
             }
             ListViewMenu.ItemsSource = menuItems;
-            ListViewMenu.SelectedItem = menuItems[0];
+            ListViewMenu.SelectedItem = menuItems[1];
 
             ListViewMenu.ItemSelected += async (sender, e) =>
             {
@@ -63,10 +63,8 @@ namespace SI_Master.Views
                     return;
                 var id = (int)((HomeMenuItem)e.SelectedItem).Id;
                 if (id != 10) {
-                    if(RootPage != null)
-                    {
-                        await RootPage.NavigateFromMenu(id);
-                    }
+                    var page = Application.Current.MainPage;
+                    await RootPage.NavigateFromMenu(id);
                 }
             };
             InfoLabel.Text = (authSettings.ActiveUser()).Caption;

@@ -26,7 +26,7 @@ namespace SI_Master
             DependencyService.Register<MockDataStore>();
             if (_authService.IsAuthorized())
             {
-                MainPage = new NavigationPage(new MainPage(0));
+                MainPage = new MainPage(authSettings.Active);
             }
             else
             {

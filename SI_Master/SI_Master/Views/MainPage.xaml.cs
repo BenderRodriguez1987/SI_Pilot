@@ -33,9 +33,9 @@ namespace SI_Master.Views
             {
                 switch (id)
                 {
-                    //case (int)MenuItemType.Map:
-                    //    MenuPages.Add(id, new NavigationPage(new MapPage()));
-                    //    break;
+                    case (int)MenuItemType.Map:
+                        MenuPages.Add(id, new NavigationPage(new MapPage()));
+                        break;
                     case (int)MenuItemType.QRCode:
                         MenuPages.Add(id, new NavigationPage(new QRCodePage()));
                         break;
